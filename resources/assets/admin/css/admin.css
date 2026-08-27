@@ -2,3 +2,42 @@
     margin-top: 20px;
     cursor: pointer;
 }
+
+/* ========================================================
+   Sidebar & Layout Polish
+   ======================================================== */
+.left_col.scroll-view {
+    height: 100vh;
+    overflow-y: auto !important;
+    position: sticky;
+    top: 0;
+}
+
+/* Sleek Scrollbar for Sidebar */
+.left_col.scroll-view::-webkit-scrollbar {
+    width: 5px;
+}
+.left_col.scroll-view::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.15);
+}
+.left_col.scroll-view::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+.left_col.scroll-view::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* Ensure right_col stays full height */
+.right_col {
+    min-height: 100vh !important;
+}
+
+/* Child menu smooth appearance */
+.nav.side-menu > li > a {
+    margin-bottom: 2px;
+}
+.nav.child_menu li a {
+    padding: 7px 10px 7px 20px;
+    font-size: 12px;
+}

@@ -1,0 +1,29 @@
+{{--
+    Snippet menu sidebar untuk grup "Master Data".
+    Sesuaikan penempatan <li> ini dengan urutan menu Purchase (sub_header_5)
+    dan Sales (sub_header_6) yang sudah ada di file navigation blade kamu
+    (biasanya resources/views/admin/layouts/partials/sidebar.blade.php
+    atau nama serupa).
+
+    Ikuti persis struktur <li>/<ul> yang dipakai untuk grup Purchase/Sales
+    di file aslimu — snippet di bawah pakai struktur umum Gentelella
+    (ikon Font Awesome + submenu). Sesuaikan class ikon jika template
+    kamu berbeda.
+--}}
+<li>
+    <a><i class="fa fa-cubes"></i> {{ __('views.backend.section.navigation.sub_header_7') }} <span class="fa fa-chevron-down"></span></a>
+    <ul class="nav child_menu">
+        <li>
+            <a href="{{ route('admin.master.barang.index') }}">{{ __('views.backend.section.navigation.menu_7_1') }}</a>
+        </li>
+        <li>
+            <a href="{{ route('admin.master.vendor.index') }}">{{ __('views.backend.section.navigation.menu_7_2') }}</a>
+        </li>
+        <li>
+            <a href="{{ route('admin.master.pelanggan.index') }}">{{ __('views.backend.section.navigation.menu_7_3') }}</a>
+        </li>
+        <li>
+            <a href="{{ route('admin.master.pengguna.index') }}">{{ __('views.backend.section.navigation.menu_7_4') }}</a>
+        </li>
+    </ul>
+</li>

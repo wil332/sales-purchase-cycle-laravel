@@ -30,7 +30,8 @@
                                 <i class="fa fa-refresh" aria-hidden="true"></i>
                             </a>
                             @if($user->protectionValidation)
-                                <table class="table table-striped table-bordered dt-responsive nowrap">
+                                <table id="products-table"
+class="table table-striped table-bordered">
                                     <thead>
                                     <tr>
                                         <th>{{ __('views.membership.table_header_3') }}</th>

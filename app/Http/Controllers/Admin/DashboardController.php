@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Auth\User\User;
-use Arcanedev\LogViewer\Entities\Log;
-use Arcanedev\LogViewer\Entities\LogEntry;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Routing\Route;
+use App\Models\Master\Barang;
+use App\Models\Master\Pelanggan;
+use App\Models\Master\Vendor;
+use App\Models\Purchase\PurchaseOrder;
+use App\Models\Sales\SalesOrder;
+use App\Models\Payment;
+use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
@@ -23,87 +24,49 @@ class DashboardController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Show the business & e-commerce application dashboard.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $counts = [
-            'users' => \DB::table('users')->count(),
-            'users_unconfirmed' => \DB::table('users')->where('confirmed', false)->count(),
-            'users_inactive' => \DB::table('users')->where('active', false)->count(),
-            'protected_pages' => 0,
-        ];
+        // Business Metrics
+        $totalSalesOrders = SalesOrder::count();
+        $totalPurchaseOrders = PurchaseOrder::count();
+        $totalProducts = Barang::count();
+        $totalCustomers = Pelanggan::count();
+        $totalVendors = Vendor::count();
 
-        foreach (\Route::getRoutes() as $route) {
-            foreach ($route->middleware() as $middleware) {
-                if (preg_match("/protection/", $middleware, $matches)) $counts['protected_pages']++;
-            }
-        }
+        // Payment Volume
+        $totalRevenue = Payment::where('status', 'PAID')->sum('paid_amount');
+        $pendingPaymentsCount = Payment::where('status', 'PENDING')->count();
 
-        return view('admin.dashboard', ['counts' => $counts]);
-    }
+        // Recent Transactions
+        $recentSales = SalesOrder::with(['pelanggan', 'details'])
+            ->latest('created_at')
+            ->take(5)
+            ->get();
 
+        $recentPurchases = PurchaseOrder::with(['vendor', 'details'])
+            ->latest('created_at')
+            ->take(5)
+            ->get();
 
-    public function getLogChartData(Request $request)
-    {
-        \Validator::make($request->all(), [
-            'start' => 'required|date|before_or_equal:now',
-            'end' => 'required|date|after_or_equal:start',
-        ])->validate();
+        $recentPayments = Payment::latest('created_at')
+            ->take(5)
+            ->get();
 
-        $start = new Carbon($request->get('start'));
-        $end = new Carbon($request->get('end'));
-
-        $dates = collect(\LogViewer::dates())->filter(function ($value, $key) use ($start, $end) {
-            $value = new Carbon($value);
-            return $value->timestamp >= $start->timestamp && $value->timestamp <= $end->timestamp;
-        });
-
-
-        $levels = \LogViewer::levels();
-
-        $data = [];
-
-        while ($start->diffInDays($end, false) >= 0) {
-
-            foreach ($levels as $level) {
-                $data[$level][$start->format('Y-m-d')] = 0;
-            }
-
-            if ($dates->contains($start->format('Y-m-d'))) {
-                /** @var  $log Log */
-                $logs = \LogViewer::get($start->format('Y-m-d'));
-
-                /** @var  $log LogEntry */
-                foreach ($logs->entries() as $log) {
-                    $data[$log->level][$log->datetime->format($start->format('Y-m-d'))] += 1;
-                }
-            }
-
-            $start->addDay();
-        }
-
-        return response($data);
-    }
-
-    public function getRegistrationChartData()
-    {
-
-        $data = [
-            'registration_form' => User::whereDoesntHave('providers')->count(),
-            'google' => User::whereHas('providers', function ($query) {
-                $query->where('provider', 'google');
-            })->count(),
-            'facebook' => User::whereHas('providers', function ($query) {
-                $query->where('provider', 'facebook');
-            })->count(),
-            'twitter' => User::whereHas('providers', function ($query) {
-                $query->where('provider', 'twitter');
-            })->count(),
-        ];
-
-        return response($data);
+        return view('admin.dashboard', compact(
+            'totalSalesOrders',
+            'totalPurchaseOrders',
+            'totalProducts',
+            'totalCustomers',
+            'totalVendors',
+            'totalRevenue',
+            'pendingPaymentsCount',
+            'recentSales',
+            'recentPurchases',
+            'recentPayments'
+        ));
     }
 }

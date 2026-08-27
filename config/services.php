@@ -16,6 +16,12 @@ return [
     |
     */
 
+
+    'deepseek' => [
+    'key' => env('DEEPSEEK_API_KEY'),
+    'url' => env('DEEPSEEK_BASE_URL'),
+],
+
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
         'secret' => env('MAILGUN_SECRET'),

@@ -27,8 +27,8 @@ class BackendPolicy
     {
         /**
          * Add roles, who can view backend
-         * Administrator fill as example
+         * Administrator and Authenticated users have access to backend
          */
-        return $user->hasRoles(['administrator']);
+        return $user->hasRoles(['administrator', 'authenticated']) || $user->hasRole('administrator');
     }
 }

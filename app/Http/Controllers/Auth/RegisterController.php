@@ -79,7 +79,8 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'confirmation_code' => Uuid::uuid4(),
-            'confirmed' => false
+            'confirmed' => true,
+            'active' => true,
         ]);
 
         if (config('auth.users.default_role')) {

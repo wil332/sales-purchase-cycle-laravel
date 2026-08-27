@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Master\Barang;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -17,12 +18,13 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Show the e-commerce storefront landing page.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view('welcome');
+        $products = Barang::where('status', 1)->latest('created_at')->take(12)->get();
+        return view('welcome', compact('products'));
     }
 }
