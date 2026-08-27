@@ -1,239 +1,142 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+# 📦 Sales & Purchase Cycle Enterprise ERP System
+> **Full-Stack Web ERP System (Laravel, MySQL, DataTables Server-Side, Xendit API & DeepSeek AI)**
 
-<p align="center">
-<a href="https://travis-ci.org/Labs64/laravel-boilerplate"><img src="https://travis-ci.org/Labs64/laravel-boilerplate.svg" alt="Build Status"></a>
-<a href="https://laravel.com"><img src="https://img.shields.io/badge/Laravel-v8-f05340.svg" alt="Laravel Version"></a>
-<a href="https://github.com/Labs64/laravel-boilerplate/blob/master/composer.json"><img src="https://img.shields.io/badge/php-%3E%3D%207.2.5-8892BF.svg" alt="PHP Badge"></a>
-<a href="https://packagist.org/packages/labs64/laravel-boilerplate"><img src="https://poser.pugx.org/labs64/laravel-boilerplate/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/labs64/laravel-boilerplate"><img src="https://poser.pugx.org/labs64/laravel-boilerplate/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/labs64/laravel-boilerplate"><img src="https://poser.pugx.org/labs64/laravel-boilerplate/license.svg" alt="License"></a>
-</p>
-
-# Laravel Boilerplate Project
-
-_Laravel Boilerplate_ provides a very flexible and extensible way of building your custom Laravel applications.
-
-## Table of Contents
-
-- [Features](#features)
-- [Theme Demo](#theme-demo)
-- [System Requirements](#system-requirements)
-- [Installation](#installation)
-- [Run](#run)
-- [Docker](#docker) :point_left:
-- [How To's & Modules configuration](#how-tos--modules-configuration)
-- [How to contribute](#how-to-contribute)
-- [Bugs and Feedback](#bugs-and-feedback)
-- [License](#license)
-
-## Features
-- Administration Dashboard with [Gentelella Admin Theme](https://github.com/puikinsh/gentelella)
-- Responsive Layout
-- Bootstrap 3
-- Font Awesome
-- Socialite Integration
-- [Invisible reCAPTCHA](https://github.com/albertcht/invisible-recaptcha)
-- **Membership plans and Access control management** by [NetLicensing](https://netlicensing.io/?utm_source=Laravel_Boilerplate&utm_medium=github&utm_campaign=laravel_boilerplate&utm_content=readme) :thumbsup:
-- MySQL, SQLite, PostgreSQL databases support
-- AWS S3 support
-- Google Analytics support in frontend
-    - Configuration can be easily made via ```analytics.php``` and template ```ga.blade.php```
-- Automatic errors feedback via eMail
-- i18n support and automatic user client language recognition
-- Helper class ```ToJs``` to ease work with JavaScript variables using blade directive ```@tojs```
-- Helper class ```Meta``` blade directive ```@meta``` to ease work with meta tags & properties
-- Models for Users and Roles
-- Added Auth controller to allow registration activation by email
-- **Guided Tour** by [GuideChimp](https://www.labs64.com/guidechimp/) :thumbsup:
-- Extended Auth configuration by:
-    - Ability to switch on/off user registration
-    - Set up default user role
-    - Ability to switch on/off registration activation email
-    - Captcha configuration
-- Gravatar support in User model and flexible configuration via ```gravatar.php```
-- Added library log viewer to allow printing errors in a log file ```laravel.log```
-- Added library sortable for tables sorting
-- i18n: ```trans()``` method replaced by ```__()``` in order to support internationalization via JSON resources
-- Registration using social services (Google+, Facebook, Twitter)
-- Storing last social login in user session
-- Added event on SocialLogin
-- Added listeners on some events; e.g. Login, Logout, Registration, SocialLogin
-- Added notification ```ConfirmEmail``` on user account confirmation
-- Added policies to access backend services
-- Added database seeders for Users, Roles, and UserRoles
-- Improved migration ```create_users_table.php```; fields added active, confirm and deleted_at for soft deletion
-- JavaScript / CSS minification
-- JavaScript / CSS hashing
-- Some very useful helper functions to ease your live :)
-
-## Theme Demo
-![Gentelella Bootstrap Admin Template](https://colorlib.com/wp/wp-content/uploads/sites/2/gentelella-admin-template-preview.jpg "Gentelella Theme Browser Preview")
-
-**[Gentelella Admin Theme Demo](https://colorlib.com/polygon/gentelella/index.html)**
-
-## System Requirements
-To be able to run Laravel Boilerplate you have to meet the following requirements:
-- PHP >= 7.4
-- PHP Extensions: BCMath, Ctype, Fileinfo, JSON, Mbstring, OpenSSL, PDO, Tokenizer, XML, cURL, Mcrypt, GD
-- Node.js >= 8.x
-- Composer >= 1.9.x
-
-## Installation
-1. Install Composer using detailed installation instructions [here](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx)
-    ```
-    wget https://getcomposer.org/composer.phar
-    ```
-    ```
-    chmod +x composer.phar
-    ```
-    ```
-    mv composer.phar /usr/local/bin/composer
-    ```
-2. Install Node.js using detailed installation instructions [here](https://nodejs.org/en/download/package-manager/)
-    ```
-    yum install npm
-    ```
-3. Clone repository
-    ```
-    git clone https://github.com/Labs64/laravel-boilerplate.git
-    ```
-4. Change into the working directory
-    ```
-    cd laravel-boilerplate
-    ```
-5. Copy `.env.example` to `.env` and modify according to your environment
-    ```
-    cp .env.example .env
-    ```
-6. Install composer dependencies
-    ```
-    composer install --prefer-dist
-    ```
-7. An application key can be generated with the command
-    ```
-    php artisan key:generate
-    ```
-8. Execute following commands to install other dependencies
-    ```
-    npm install
-    ```
-    ```
-    npm run dev
-    ```
-9. Run these commands to create the tables within the defined database and populate seed data
-    ```
-    php artisan migrate --seed
-    ```
-
-## Troubleshooting
-
-- If you get an error like a `PDOException` try editing your `.env` file and change `DB_HOST=127.0.0.1` to `DB_HOST=localhost` or `DB_HOST=mysql` (for *docker-compose* environment).
-
-- If you get a password error try this command:
-  ```
-  # ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'root';
-  ```
-
-## Run
-
-To start the PHP built-in server
-  ```
-  php artisan serve --port=8080
-  ```
-or
-  ```
-  php -S localhost:8080 -t public/
-  ```
-
-Now you can browse the site at [http://localhost:8080](http://localhost:8080)  🙌
-
-## Docker
-
-Here is a Docker based local development environment prepared, which provides a very flexible and extensible way of building your custom Laravel applications.
-
-### What's Inside
-This project is based on [docker-compose](https://docs.docker.com/compose/). By default, the following containers are started: _laravel-env (centos:7 based), mysql, nginx_. Additional containers (_phpmyadmin, mailhog_) are externalized into `docker-compose.utils.yml`. The `/var/www/laravel-boilerplate` directory is the web root which is mapped to the nginx container.
-You can directly edit configuration files from within the repo as they are mapped to the correct locations in containers.
-
-<p align="center"><img src="https://raw.githubusercontent.com/Labs64/laravel-boilerplate/master/dockerfiles/img/laravel-boilerplate-docker.png" alt="Laravel Boilerplate Docker"></p>
-
-### System Requirements
-To be able to run Laravel Boilerplate you have to meet the following requirements:
-* [docker](https://www.docker.com)
-* [docker-compose](https://docs.docker.com/compose/)
-
-### Run
-
-1. Clone repository
-    ```
-    git clone https://github.com/Labs64/laravel-boilerplate.git
-    ```
-
-2. Copy `.env.example` to `.env` and modify according to your environment (make sure database host set to `DB_HOST=mysql`)
-    ```
-    cp .env.example .env
-    ```
-
-3. Start environment
-    ```
-    docker-compose up -d  # to start base containers
-    ```
-    or
-    ```
-    docker-compose -f docker-compose.yml -f docker-compose.utils.yml up -d  # to start base and utils containers
-    ```
-
-4. Build project
-    ```
-    docker exec laravel-boilerplate_laravel-env_1 ./dockerfiles/bin/prj-build.sh
-    ```
-    or
-    ```
-    docker-compose run --rm laravel-boilerplate_laravel-env_1 ./dockerfiles/bin/prj-build.sh
-    ```
-
-Now you can browse the site at [http://localhost:80](http://localhost:80)  🙌
+[![Laravel](https://img.shields.io/badge/Laravel-8.x-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
+[![PHP](https://img.shields.io/badge/PHP-7.4%20%7C%208.x-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://php.net)
+[![MySQL](https://img.shields.io/badge/MySQL-Database-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://mysql.com)
+[![Xendit](https://img.shields.io/badge/Xendit-Payment_Gateway-0072FF?style=for-the-badge)](https://xendit.co)
+[![DeepSeek AI](https://img.shields.io/badge/DeepSeek_AI-LLM_Assistant-00A67E?style=for-the-badge)](https://deepseek.com)
 
 ---
 
-5. Stop environment
-    ```
-    docker-compose down
-    ```
-    or
-    ```
-    docker-compose -f docker-compose.yml -f docker-compose.utils.yml down
-    ```
+## 📌 About The Project
 
-## How To's & Modules configuration
+A comprehensive **Enterprise Resource Planning (ERP)** web application built to digitize and automate the entire **Purchasing & Sales Cycle** for electronics and retail enterprises. 
 
-Check out project [wiki](https://github.com/Labs64/laravel-boilerplate/wiki) pages for modules configuration and troubleshooting.
-For more detailed instructions on how to use Laravel and it's extensions, check out the full Laravel [documentation](https://laravel.com/docs/).
+This project bridges complex business rules into a seamless, automated workflow—featuring **Cascading Document Flow** (PO/SO tracking, Goods Receipt, Shipments, Invoicing), **Vendor-Product Relational Mapping**, **Xendit Payment Gateway Integration**, and an interactive **DeepSeek AI Onboarding Assistant (ARIA)** for new staff onboarding.
 
-## How to contribute
+---
 
-Fork the repository, read the [CONTRIBUTE](CONTRIBUTE.md) file and make some changes.
-Once you're done with your changes send a pull request and check [CI validation status](https://travis-ci.org/Labs64/laravel-boilerplate).
-Thanks!
+## 🔥 Key Features & Business Logic
 
-### Contributors and Supporters
+### 1. 🔄 Cascading Document Flow (Automated Transaction Pipeline)
+- **Purchase Flow**: `Purchase Request (PR)` ➔ `Purchase Order (PO)` ➔ `Goods Receipt (GR)` ➔ `Purchase Invoice (PINV)` ➔ `Purchase Payment (PPAY)`
+  - **Dynamic Auto-Fill**: Selecting a reference document (e.g. selecting PO in Goods Receipt form) auto-populates items, remaining quantities, unit prices, and locks SKUs.
+  - **Auto Status Progression**: Orders progress to `Selesai` (Completed) automatically once all items are received/shipped in full.
+  - **Smart Filtering**: Completed or canceled documents are automatically excluded from creation dropdowns.
+- **Sales Flow**: `Sales Order (SO)` ➔ `Shipment / Surat Jalan (SHP)` ➔ `Sales Invoice (SINV)` ➔ `Sales Payment / Xendit Payment`
+  - Customer auto-selection, stock limit checks, price/discount inheritance.
 
-Thank you to all the [contributors](https://github.com/Labs64/laravel-boilerplate/graphs/contributors) on this project. Your help is much appreciated!
+### 2. 🏢 Vendor ↔ Product Relational Mapping
+- **Many-to-Many Architecture (`vendor_barang`)**: Vendors supply specific items based on their domain.
+- **Real-Time Checkbox Matrix**: Interactive UI on Vendor master form with real-time search filtering and *Select All / Unselect All* controls.
+- **PO Filtering**: Purchase Order product dropdowns automatically filter items based on the selected Vendor.
 
-- [Clever Kids](https://clever-kids.eu?utm_source=Laravel_Boilerplate&utm_medium=github&utm_campaign=laravel_boilerplate&utm_content=readme) team for a great support in project structuring.
-- [GuideChimp](https://www.labs64.com/guidechimp/) - A simple, lightweight, clean and small library for creating guided product tours for your web app.
-- [PluginPass – WordPress PRO Plugin/Theme Licensing](https://wordpress.org/plugins/pluginpass-pro-plugintheme-licensing/) - Easily control the use and monetize your WordPress plugins and themes
-- [@veerajongit](https://github.com/veerajongit) - a package that does the testing automatically every time the code or the test changes
-- [@rainerkent](https://github.com/rainerkent) - Update to Laravel 6
+### 3. 💳 Xendit Payment Gateway & Settlement
+- **Online Checkout Integration**: Generates online payment URLs supporting **QRIS, Virtual Accounts (BCA/Mandiri/BRI/BNI), E-Wallets, and Credit Cards**.
+- **Real-Time Webhook & Polling**: Automatically receives payment callbacks and recalculates invoice balances, instantly updating Sales Invoice status to `Lunas` (*Paid*).
 
-## Bugs and Feedback
+### 4. 🤖 ARIA — AI Internal ERP Onboarding Assistant
+- **LLM Integration**: Powered by DeepSeek API (`deepseek-chat`) acting as an internal SOP & onboarding assistant for new employees.
+- **Modern Chat Interface**: WhatsApp-style bubble UI, typing indicators, custom ERP persona system prompt, and interactive quick-start chips.
 
-For bugs, questions and discussions please use the [GitHub Issues](https://github.com/Labs64/laravel-boilerplate/issues).
+### 5. ⚡ Performance & Security
+- **DataTables Server-Side Processing**: Fast rendering of large-scale dataset tables using optimized SQL `JOIN`s.
+- **Role-Based Access Control (RBAC)**: Fine-grained backend authorization via custom `BackendPolicy` middleware.
 
-## License
+---
 
-This boilerplate is open-source software licensed under the [MIT license](LICENSE).
+## 📐 System Architecture & Workflow
 
-## Star History
+```
+[ PURCHASE CHAIN ]
+  Purchase Order (PO) ──► Goods Receipt (GR) ──► Purchase Invoice ──► Purchase Payment
+  (Vendor Filtered)      (Auto-Fill Qty)       (Auto Unit Price)    (Auto Balance)
 
-[![Star History Chart](https://api.star-history.com/svg?repos=Labs64/laravel-boilerplate&type=Date)](https://www.star-history.com/#Labs64/laravel-boilerplate&Date)
+[ SALES CHAIN ]
+  Sales Order (SO)    ──► Shipment / Surat Jalan ──► Sales Invoice ──► Manual Payment / Xendit (QRIS/VA)
+  (Customer Order)       (Auto Remaining Qty)      (Auto Price/Disc)   (Webhook Auto-Settlement)
+```
+
+---
+
+## 🛠️ Tech Stack & Dependencies
+
+- **Backend**: Laravel (MVC Architecture), PHP 7.4 / 8.x, Eloquent ORM
+- **Database**: MySQL (Relational Schema, Foreign Key Cascades, Pivot Tables)
+- **Frontend**: Bootstrap, DataTables Server-Side Processing, AJAX (Fetch API), jQuery, Gentelella Admin Theme
+- **Integrations**: Xendit Payment Gateway API, DeepSeek LLM API
+
+---
+
+## 🚀 Quick Start / Local Installation
+
+### Prerequisites
+- PHP >= 7.4
+- Composer >= 2.x
+- MySQL Database
+- Node.js & NPM
+
+### Installation Steps
+
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/wil332/sales-purchase-cycle-laravel.git
+   cd sales-purchase-cycle-laravel
+   ```
+
+2. **Install Dependencies**
+   ```bash
+   composer install
+   npm install && npm run dev
+   ```
+
+3. **Configure Environment**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+   Update `.env` database configuration:
+   ```env
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=db_sales_purchase
+   DB_USERNAME=root
+   DB_PASSWORD=
+   ```
+
+4. **Run Migrations & Master Data Seeder**
+   ```bash
+   php artisan migrate:fresh --seed --class=MasterDataCleanSeeder
+   ```
+
+5. **Start Local Development Server**
+   ```bash
+   php artisan serve --port=8080
+   ```
+   Open `http://127.0.0.1:8080/login` in your browser.
+
+---
+
+## 🔑 Demo Access Credentials
+
+| Role | Email Login | Password | Access Rights |
+| :--- | :--- | :--- | :--- |
+| **Administrator** | `admin@perusahaan.com` | `admin123` | Full Access to All Modules & Config |
+| **Personal Admin** | `wilbert@gmail.com` | `admin123` | Full Administrator Access |
+| **Purchasing Staff** | `purchasing@perusahaan.com` | `purchasing123` | PO, PR, & Vendor Management |
+| **Warehouse Staff** | `gudang@perusahaan.com` | `gudang123` | Goods Receipt & Shipments |
+| **Sales Staff** | `sales@perusahaan.com` | `sales123` | Sales Orders, Customers, & Invoices |
+
+---
+
+## 👨‍💻 Developer & Contact
+
+**WILBERT**  
+*Full-Stack Web Developer & AI Agent Integration Specialist*  
+Medan, Indonesia
+
+- 🌐 **Portfolio**: [wilbert-portfolio.infinityfreeapp.com](https://wilbert-portfolio.infinityfreeapp.com/)
+- 💻 **GitHub**: [github.com/wil332](https://github.com/wil332)
+- ✉️ **Email**: ndwilbert@gmail.com
