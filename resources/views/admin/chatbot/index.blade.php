@@ -146,14 +146,21 @@
 
         <div class="panel panel-default" style="border:none;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
 
-            <div class="panel-heading" style="background:linear-gradient(135deg,#0f9d58,#1a73e8);border-radius:6px 6px 0 0;padding:14px 20px;">
-                <h4 class="panel-title" style="color:#fff;font-weight:700;">
-                    <i class="fa fa-comments"></i>
-                    ARIA — Asisten Referensi Internal Aplikasi ERP
-                    <small style="font-weight:400;font-size:12px;display:block;margin-top:2px;opacity:0.85;">
+            <div class="panel-heading" style="background:linear-gradient(135deg,#0f9d58,#1a73e8);border-radius:6px 6px 0 0;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+                <div>
+                    <h4 class="panel-title" style="color:#fff;font-weight:700;margin:0;">
+                        <i class="fa fa-comments"></i>
+                        ARIA — Asisten Referensi Internal Aplikasi ERP
+                    </h4>
+                    <small style="font-weight:400;font-size:12px;display:block;margin-top:2px;color:rgba(255,255,255,0.85);">
                         Panduan &amp; Onboarding Staf untuk Sistem Purchase &amp; Sales
                     </small>
-                </h4>
+                </div>
+                <div>
+                    <span class="label" style="background:rgba(255,255,255,0.22);color:#fff;border:1px solid rgba(255,255,255,0.35);font-size:11px;padding:5px 12px;border-radius:12px;display:inline-flex;align-items:center;gap:6px;">
+                        <i class="fa fa-bolt"></i> <strong>{{ strtoupper($provider ?? 'OPENROUTER') }} API</strong> ({{ $model ?? 'meta-llama/llama-3.1-8b-instruct:free' }})
+                    </span>
+                </div>
             </div>
 
             <div class="panel-body">

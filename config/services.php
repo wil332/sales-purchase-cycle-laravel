@@ -16,11 +16,22 @@ return [
     |
     */
 
+    'openrouter' => [
+        'key'   => env('OPENROUTER_API_KEY', env('OPENROUTER_KEY')),
+        'url'   => env('OPENROUTER_BASE_URL', 'https://openrouter.ai/api/v1'),
+        'model' => env('OPENROUTER_MODEL', 'meta-llama/llama-3.1-8b-instruct:free'),
+    ],
+
+    'groq' => [
+        'key'   => env('GROQ_API_KEY', env('GROQ_KEY')),
+        'url'   => env('GROQ_BASE_URL', 'https://api.groq.com/openai/v1'),
+        'model' => env('GROQ_MODEL', 'llama-3.3-70b-versatile'),
+    ],
 
     'deepseek' => [
-    'key' => env('DEEPSEEK_API_KEY'),
-    'url' => env('DEEPSEEK_BASE_URL'),
-],
+        'key' => env('DEEPSEEK_API_KEY'),
+        'url' => env('DEEPSEEK_BASE_URL'),
+    ],
 
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
