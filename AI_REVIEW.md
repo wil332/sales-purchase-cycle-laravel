@@ -217,7 +217,17 @@ $query = Product::leftJoin('categories', 'm_barang.category_id', '=', 'categorie
 
 ### 4.4 Modifikasi yang Dilakukan
 
-- Menambahkan badge `label label-info` pada view Blade agar nama kategori tampil menarik di dalam DataTables.
+- **Modifikasi Styling Label Kategori di DataTables:**
+  Mengubah keluaran teks mentah nama kategori (`$p->category_name`) di `ProductController.php` dan `index.blade.php` menjadi komponen UI badge berwarna yang terformat rapi:
+  ```php
+  'category_name' => $p->category_name 
+      ? '<span class="label label-info"><i class="fa fa-tag"></i> ' . e($p->category_name) . '</span>' 
+      : '<span class="label label-default">Tanpa Kategori</span>',
+  ```
+  *Alasan Modifikasi:* Agar tampilan nama kategori di tabel DataTables Produk jauh lebih intuitif, estetis, dan mudah dibedakan oleh pengguna dibanding sekadar teks polos biasa.
+
+- **Modifikasi Filter Pencarian Multi-Kolom DataTables:**
+  Menambahkan `orWhere('categories.name', 'LIKE', "%{$searchValue}%")` ke dalam penanganan pencarian Server-Side AJAX agar pengguna dapat mencari produk berdasarkan nama kategorinya secara langsung.
 
 ### 4.5 Apakah Kode Bisa Langsung Dijalankan?
 
