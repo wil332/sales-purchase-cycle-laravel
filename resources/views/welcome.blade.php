@@ -439,10 +439,10 @@
     <div class="products-grid">
         @forelse($products as $product)
             <div class="product-card">
-                <div class="product-img-wrap">
-                    <span class="product-sku-badge">{{ $product->sku }}</span>
-                    <span class="product-stock-badge"><i class="fa-solid fa-check"></i> Tersedia</span>
-                    <i class="fa-solid fa-box-open product-img-placeholder"></i>
+                <div class="product-img-wrap" style="padding: 0; position: relative; overflow: hidden; background: #f8fafc;">
+                    <span class="product-sku-badge" style="z-index: 2;">{{ $product->sku }}</span>
+                    <span class="product-stock-badge" style="z-index: 2;"><i class="fa-solid fa-check"></i> Tersedia</span>
+                    <img src="{{ $product->gambar_url }}" alt="{{ $product->nama_barang }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.06)'" onmouseout="this.style.transform='scale(1.0)'">
                 </div>
                 <div class="product-body">
                     <h3>{{ $product->nama_barang }}</h3>
