@@ -221,10 +221,50 @@
             });
 
             var shipmentSelect = document.getElementById('no_pengiriman');
+            var pelangganSelect = document.getElementById('id_pelanggan');
+            var allPelangganList = @json($pelangganList);
+
+            function updatePelangganOptions(targetPelangganId) {
+                if (!pelangganSelect) return;
+                pelangganSelect.innerHTML = '';
+
+                if (targetPelangganId) {
+                    var found = allPelangganList.find(function (p) {
+                        return String(p.id_pelanggan) === String(targetPelangganId);
+                    });
+                    if (found) {
+                        var opt = document.createElement('option');
+                        opt.value = found.id_pelanggan;
+                        opt.textContent = found.nama_pelanggan;
+                        opt.selected = true;
+                        pelangganSelect.appendChild(opt);
+                    } else {
+                        var optDef = document.createElement('option');
+                        optDef.value = targetPelangganId;
+                        optDef.textContent = 'Pelanggan ID ' + targetPelangganId;
+                        optDef.selected = true;
+                        pelangganSelect.appendChild(optDef);
+                    }
+                } else {
+                    var optDef = document.createElement('option');
+                    optDef.value = '';
+                    optDef.textContent = '-- Pilih Pelanggan --';
+                    pelangganSelect.appendChild(optDef);
+
+                    allPelangganList.forEach(function (p) {
+                        var opt = document.createElement('option');
+                        opt.value = p.id_pelanggan;
+                        opt.textContent = p.nama_pelanggan;
+                        pelangganSelect.appendChild(opt);
+                    });
+                }
+            }
+
             if (shipmentSelect && shipmentSelect.tagName.toLowerCase() === 'select') {
                 shipmentSelect.addEventListener('change', function () {
                     var shipmentId = this.value;
                     if (!shipmentId) {
+                        updatePelangganOptions(null);
                         body.innerHTML = '';
                         rowIndex = 0;
                         addRow();
@@ -236,10 +276,9 @@
                         .then(function (res) { return res.json(); })
                         .then(function (resData) {
                             if (resData.id_pelanggan) {
-                                var pelangganSelect = document.getElementById('id_pelanggan');
-                                if (pelangganSelect) {
-                                    pelangganSelect.value = resData.id_pelanggan;
-                                }
+                                updatePelangganOptions(resData.id_pelanggan);
+                            } else {
+                                updatePelangganOptions(null);
                             }
 
                             var items = resData.items || [];
@@ -256,6 +295,10 @@
                             console.error('Error fetching shipment items:', err);
                         });
                 });
+
+                if (shipmentSelect.value) {
+                    shipmentSelect.dispatchEvent(new Event('change'));
+                }
             }
 
             if (rowIndex === 0) {

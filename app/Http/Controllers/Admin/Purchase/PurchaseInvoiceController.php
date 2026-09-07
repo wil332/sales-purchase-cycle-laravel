@@ -43,7 +43,7 @@ class PurchaseInvoiceController extends Controller
             'barangList'  => Barang::where('status', 1)->orderBy('nama_barang')->get(),
             'vendorList'  => Vendor::where('status', 1)->orderBy('nama_vendor')->get(),
             'penggunaList' => Pengguna::jabatan(['purchasing', 'admin'])->orderBy('nama_lengkap')->get(),
-            'receiptList' => GoodsReceipt::orderBy('no_penerimaan')->get(),
+            'receiptList' => GoodsReceipt::with('purchaseOrder.vendor')->orderBy('no_penerimaan')->get(),
         ]);
     }
 
@@ -93,7 +93,7 @@ class PurchaseInvoiceController extends Controller
             'barangList'   => Barang::where('status', 1)->orderBy('nama_barang')->get(),
             'vendorList'   => Vendor::where('status', 1)->orderBy('nama_vendor')->get(),
             'penggunaList' => Pengguna::jabatan(['purchasing', 'admin'])->orderBy('nama_lengkap')->get(),
-            'receiptList'  => GoodsReceipt::orderBy('no_penerimaan')->get(),
+            'receiptList'  => GoodsReceipt::with('purchaseOrder.vendor')->orderBy('no_penerimaan')->get(),
         ]);
     }
 

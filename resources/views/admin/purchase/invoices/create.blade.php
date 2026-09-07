@@ -38,8 +38,11 @@
                         <select id="no_penerimaan" name="no_penerimaan" class="form-control">
                             <option value="">-- Tidak terkait Penerimaan --</option>
                             @foreach($receiptList as $receipt)
+                                @php
+                                    $vName = optional(optional($receipt->purchaseOrder)->vendor)->nama_vendor;
+                                @endphp
                                 <option value="{{ $receipt->no_penerimaan }}" {{ (string) old('no_penerimaan') === (string) $receipt->no_penerimaan ? 'selected' : '' }}>
-                                    {{ $receipt->no_penerimaan }}
+                                    {{ $receipt->no_penerimaan }} {{ $vName ? '(Vendor: ' . $vName . ')' : '' }}
                                 </option>
                             @endforeach
                         </select>
@@ -238,10 +241,50 @@
             });
 
             var receiptSelect = document.getElementById('no_penerimaan');
+            var vendorSelect = document.getElementById('id_vendor');
+            var allVendors = @json($vendorList);
+
+            function updateVendorOptions(targetVendorId) {
+                if (!vendorSelect) return;
+                vendorSelect.innerHTML = '';
+
+                if (targetVendorId) {
+                    var found = allVendors.find(function (v) {
+                        return String(v.id_vendor) === String(targetVendorId);
+                    });
+                    if (found) {
+                        var opt = document.createElement('option');
+                        opt.value = found.id_vendor;
+                        opt.textContent = found.nama_vendor;
+                        opt.selected = true;
+                        vendorSelect.appendChild(opt);
+                    } else {
+                        var optDef = document.createElement('option');
+                        optDef.value = targetVendorId;
+                        optDef.textContent = 'Vendor ID ' + targetVendorId;
+                        optDef.selected = true;
+                        vendorSelect.appendChild(optDef);
+                    }
+                } else {
+                    var optDef = document.createElement('option');
+                    optDef.value = '';
+                    optDef.textContent = '-- Pilih Vendor --';
+                    vendorSelect.appendChild(optDef);
+
+                    allVendors.forEach(function (v) {
+                        var opt = document.createElement('option');
+                        opt.value = v.id_vendor;
+                        opt.textContent = v.nama_vendor;
+                        vendorSelect.appendChild(opt);
+                    });
+                }
+            }
+
             if (receiptSelect) {
                 receiptSelect.addEventListener('change', function () {
                     var receiptId = this.value;
                     if (!receiptId) {
+                        updateVendorOptions(null);
                         detailRows.innerHTML = '';
                         rowIndex = 0;
                         addRow();
@@ -253,10 +296,9 @@
                         .then(function (res) { return res.json(); })
                         .then(function (resData) {
                             if (resData.id_vendor) {
-                                var vendorSelect = document.getElementById('id_vendor');
-                                if (vendorSelect) {
-                                    vendorSelect.value = resData.id_vendor;
-                                }
+                                updateVendorOptions(resData.id_vendor);
+                            } else {
+                                updateVendorOptions(null);
                             }
 
                             var items = resData.items || [];
@@ -273,6 +315,10 @@
                             console.error('Error fetching receipt items:', err);
                         });
                 });
+
+                if (receiptSelect.value) {
+                    receiptSelect.dispatchEvent(new Event('change'));
+                }
             }
         })();
     </script>
