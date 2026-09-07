@@ -15,7 +15,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel" style="border-radius: 12px; border: 1px solid #e9edf2; box-shadow: 0 2px 10px rgba(0,0,0,0.04);">
             <div class="x_title">
-                <h2><i class="fa fa-folder-open text-primary"></i> Daftar Kategori Produk (Server-Side DataTables)</h2>
+                <h2><i class="fa fa-folder-open text-primary"></i> Kategori Produk </h2>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">

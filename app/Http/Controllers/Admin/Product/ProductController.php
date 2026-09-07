@@ -20,6 +20,18 @@ class ProductController extends Controller
         return view('admin.products.index', compact('products'));
     }
 
+    public function checkSku(Request $request)
+    {
+        $sku = trim($request->query('sku', ''));
+        $exists = Product::where('sku', $sku)->exists();
+        return response()->json([
+            'exists' => $exists,
+            'message' => $exists 
+                ? "SKU \"{$sku}\" sudah terdaftar di sistem. Gunakan SKU lain atau klik Acak." 
+                : "SKU \"{$sku}\" tersedia (belum pernah digunakan)."
+        ]);
+    }
+
     /**
      * Server-Side DataTables AJAX endpoint for Products
      */
@@ -70,6 +82,7 @@ class ProductController extends Controller
 
             $data[] = [
                 'sku' => '<strong>' . e($p->sku) . '</strong>',
+                'gambar' => '<img src="' . e($p->gambar_url) . '" alt="' . e($p->nama_barang) . '" class="img-thumbnail" style="width: 44px; height: 44px; object-fit: cover; border-radius: 8px; border: 1px solid #e2e8f0;">',
                 'nama_barang' => e($p->nama_barang),
                 'category_name' => $p->category_name 
                     ? '<span class="label label-info"><i class="fa fa-tag"></i> ' . e($p->category_name) . '</span>' 

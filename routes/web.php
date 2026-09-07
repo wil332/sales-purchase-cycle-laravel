@@ -235,16 +235,16 @@ Route::group(['prefix' => 'admin/sales', 'as' => 'admin.sales.', 'namespace' => 
 
 Route::group(['prefix' => 'admin/master', 'as' => 'admin.master.', 'namespace' => 'Admin\Master', 'middleware' => 'admin'], function () {
 
-    // Barang
-    Route::get('barang/check-sku', 'BarangController@checkSku')->name('barang.check-sku');
-    Route::get('barang', 'BarangController@index')->name('barang.index');
-    Route::get('barang/create', 'BarangController@create')->name('barang.create');
-    Route::post('barang', 'BarangController@store')->name('barang.store');
-    Route::get('barang/{barang}', 'BarangController@show')->name('barang.show');
-    Route::get('barang/{barang}/edit', 'BarangController@edit')->name('barang.edit');
-    Route::put('barang/{barang}', 'BarangController@update')->name('barang.update');
-    Route::patch('barang/{barang}', 'BarangController@update');
-    Route::delete('barang/{barang}', 'BarangController@destroy')->name('barang.destroy');
+    // Barang (Unified Product & Master Barang)
+    Route::get('barang/check-sku', '\App\Http\Controllers\Admin\product\ProductController@checkSku')->name('barang.check-sku');
+    Route::get('barang', '\App\Http\Controllers\Admin\product\ProductController@getProductList')->name('barang.index');
+    Route::get('barang/create', '\App\Http\Controllers\Admin\product\ProductController@getProductCreate')->name('barang.create');
+    Route::post('barang', '\App\Http\Controllers\Admin\product\ProductController@postProductCreate')->name('barang.store');
+    Route::get('barang/{barang}', '\App\Http\Controllers\Admin\product\ProductController@getProductShow')->name('barang.show');
+    Route::get('barang/{barang}/edit', '\App\Http\Controllers\Admin\product\ProductController@getProductEdit')->name('barang.edit');
+    Route::put('barang/{barang}', '\App\Http\Controllers\Admin\product\ProductController@putProductEdit')->name('barang.update');
+    Route::patch('barang/{barang}', '\App\Http\Controllers\Admin\product\ProductController@putProductEdit');
+    Route::delete('barang/{barang}', '\App\Http\Controllers\Admin\product\ProductController@getProductDestroy')->name('barang.destroy');
 
     // Vendor
     Route::get('vendor', 'VendorController@index')->name('vendor.index');
